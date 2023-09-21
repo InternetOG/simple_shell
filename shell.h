@@ -1,34 +1,47 @@
-#ifndef _HOLBERTON_H_
-#define _HOLBERTON_H_
-#include <sys/wait.h>
-#include <sys/types.h>
+#ifndef SHELL_H
+#define SHELL_H
+#define _GNU_SOURCE
+#define TOK_DELIM ": '\n''\t'"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <unistd.h>
-#include <dirent.h>
-#include <limits.h>
 #include <string.h>
 
+typedef struct list_s
+{
+	char *str;
+	struct list_s *next;
+} list_t;
+
+typedef struct command
+{
+	char *arg;
+	int (*func)(void);
+
+} cmnd_t;
+
+int main(void);
+int _strlen(char *);
+int env(void);
+int exitshell(void);
+int *printdir(void);
+int _setenv(const char *name, const char *value, int overwrite);
+int builtin(char *s);
+int printenv(void);
+int _strcmp(char *s1, char *s2);
+int _help(char *args);
+char *_getenv(const char *name);
+char *findpath(char *name);
+char *_strdup(char *str);
+char *str_concat(char *s1, char *s2);
+char *getinput(void);
+char **tokenizer(char *buffer);
+void _sigign(int sig);
 extern char **environ;
 
-char *show_input(void);
-void prompt(void);
-char *_strcat(char *src);
-int _strlen(char *str);
-void place(char *str);
-char *findfile(char *command);
-char *find_command(char *command);
-int compare(char *s1, char *s2);
-int _strcmpdir(char *s1, char *s2);
-int charput(char c);
-void place(char *str);
-char *str_concat(char *s1, char *s2);
-int lookforslash(char *cmd);
-int compareExit(char *s1, char *s2);
-int compareEnv(char *s1, char *s2);
-void execute_proc(char **cmd);
-char **identify_string(char *parameter);
-void controlC(int sig);
 #endif
