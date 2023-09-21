@@ -1,57 +1,34 @@
-#ifndef SHELL_H
-#define SHELL_H
-
+#ifndef _HOLBERTON_H_
+#define _HOLBERTON_H_
+#include <sys/wait.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <errno.h>
+#include <ctype.h>
+#include <unistd.h>
 #include <dirent.h>
-#include <signal.h>
+#include <limits.h>
+#include <string.h>
 
-#define BUFFER_SIZE 1024
-
-/**
- * struct map - It maps and check the env and exit command
- * @cmd_string: The command string to be mapped
- * @func: This is a function pointer that execute another function
- */
-
-struct map
-{
-	char *cmd_string;
-	void (*func)(char **cmd);
-};
-
-/* Global variables */
-extern int check_status;
-extern char **cmds;
 extern char **environ;
-extern char *sh_name;
-extern char *buff;
 
-/* Functions */
-void remove_nwl(char *str);
-void remove_cmt(char *str);
-char **token(char *str, char *delim);
-char *get_envron(char *path);
-char *path_chk(char *cmd);
-
-/* Function1 */
-int parse_cmd(char *cmd);
-void (*request_func(char *cmd))(char **);
-void _printf(char *str, int fd);
-void exec_cmd(char **token_cmd, int cmd_type);
-void init(char **currCmd, int cmdType);
-
-/* Function2 */
-int strToInt(char *s);
-void __exit(char **cmd_token);
-void non_interactive(void);
-void _env(char **c);
-void ctrl_c(int num);
-
+char *show_input(void);
+void prompt(void);
+char *_strcat(char *src);
+int _strlen(char *str);
+void place(char *str);
+char *findfile(char *command);
+char *find_command(char *command);
+int compare(char *s1, char *s2);
+int _strcmpdir(char *s1, char *s2);
+int charput(char c);
+void place(char *str);
+char *str_concat(char *s1, char *s2);
+int lookforslash(char *cmd);
+int compareExit(char *s1, char *s2);
+int compareEnv(char *s1, char *s2);
+void execute_proc(char **cmd);
+char **identify_string(char *parameter);
+void controlC(int sig);
 #endif
